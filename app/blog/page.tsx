@@ -5,50 +5,50 @@ import { Badge } from "@/components/ui/badge"
 export default function BlogPage() {
   const posts = [
     {
-      id: 1,
+      slug: "product-discovery-efetivo",
       title: "Como implementar Product Discovery de forma efetiva",
       excerpt:
         "Aprenda as melhores práticas para conduzir um processo de discovery que gere insights valiosos e reduza riscos no desenvolvimento de produtos.",
-      date: "10 Abr 2023",
+      date: "2023-04-10",
       categories: ["Product Discovery", "Metodologias"],
     },
     {
-      id: 2,
+      slug: "metricas-product-manager",
       title: "Métricas que todo Product Manager deve acompanhar",
       excerpt:
         "Conheça as principais métricas que ajudam a avaliar a saúde do seu produto e tomar decisões baseadas em dados.",
-      date: "25 Mar 2023",
+      date: "2023-03-25",
       categories: ["Métricas", "Dados"],
     },
     {
-      id: 3,
+      slug: "pm-transformacao-digital",
       title: "O papel do Product Manager na transformação digital",
       excerpt:
         "Como PMs podem liderar iniciativas de transformação digital e criar uma cultura centrada no usuário nas organizações.",
-      date: "12 Mar 2023",
+      date: "2023-03-12",
       categories: ["Transformação Digital", "Liderança"],
     },
     {
-      id: 4,
+      slug: "roadmaps-efetivos",
       title: "Construindo roadmaps efetivos: além do timeline",
       excerpt:
         "Aprenda a criar roadmaps orientados a resultados que comuniquem a estratégia do produto e alinhem stakeholders.",
-      date: "28 Fev 2023",
+      date: "2023-02-28",
       categories: ["Roadmap", "Estratégia"],
     },
     {
-      id: 5,
+      slug: "workshops-ideacao-remotos",
       title: "Como conduzir workshops de ideação remotos",
       excerpt: "Técnicas e ferramentas para facilitar workshops de ideação efetivos em ambientes remotos ou híbridos.",
-      date: "15 Fev 2023",
+      date: "2023-02-15",
       categories: ["Workshops", "Trabalho Remoto"],
     },
     {
-      id: 6,
+      slug: "acessibilidade-produtos-digitais",
       title: "A importância da acessibilidade no desenvolvimento de produtos",
       excerpt:
         "Por que acessibilidade deve ser uma prioridade desde o início do desenvolvimento e como implementá-la corretamente.",
-      date: "30 Jan 2023",
+      date: "2023-01-30",
       categories: ["Acessibilidade", "UX"],
     },
   ]
@@ -65,7 +65,14 @@ export default function BlogPage() {
 
         <div className="space-y-8">
           {posts.map((post) => (
-            <article key={post.id} className="group space-y-3 border-b pb-8">
+            <article key={post.slug} className="group space-y-3 border-b pb-8">
+              <nav className="text-sm text-muted-foreground">
+                <span className="mr-1">
+                  <Link href="/">Início</Link> / <Link href="/blog">Blog</Link> /{" "}
+                </span>
+                <span className="text-foreground">{post.title}</span>
+              </nav>
+
               <div className="flex flex-wrap gap-2">
                 {post.categories.map((category) => (
                   <Badge key={category} variant="secondary" className="text-xs">
@@ -74,14 +81,20 @@ export default function BlogPage() {
                 ))}
               </div>
               <h2 className="text-2xl font-bold tracking-tight group-hover:text-primary">
-                <Link href={`/blog/${post.id}`}>{post.title}</Link>
+                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
               </h2>
               <div className="flex items-center text-sm text-muted-foreground">
                 <Calendar className="mr-1 h-4 w-4" />
-                <time dateTime={post.date}>{post.date}</time>
+                <time dateTime={post.date}>
+                  {new Date(post.date).toLocaleDateString("pt-BR", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </time>
               </div>
               <p className="text-muted-foreground">{post.excerpt}</p>
-              <Link href={`/blog/${post.id}`} className="inline-flex items-center text-sm font-medium text-primary">
+              <Link href={`/blog/${post.slug}`} className="inline-flex items-center text-sm font-medium text-primary">
                 Ler artigo completo <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </article>
